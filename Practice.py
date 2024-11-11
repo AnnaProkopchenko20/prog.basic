@@ -1,3 +1,5 @@
+import pickle
+
 data = {}
 grades = []
 with open("data.csv","rt") as file :
@@ -13,9 +15,21 @@ with open("data.csv","rt") as file :
         if prog_lang not in data[grade] :
             data[grade][prog_lang] = []
         data[grade][prog_lang].append(info)
-for i in data :
-    print(i)
-    for j in data[i] :
-        print(j,data[i][j])
+
+with open("filtered_data.txt","wb") as file :
+    pickle.dump(data,file)
+
+with open("filtered_data.txt","rb") as file :
+    data = pickle.load(file)
+    for i in data :
+        print(i,":")
+        for j in data[i] :
+            print("  ",end="")
+            print(j,":")
+            for k in data[i][j] :
+                print("  ",end="")
+                print(k)
+
+
 
 
